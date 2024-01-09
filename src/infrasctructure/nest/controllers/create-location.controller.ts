@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Logger } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
 
 import { CreateLocationUseCase } from '@app/application';
@@ -31,8 +31,8 @@ export class CreateLocationRequest {
   state: string;
 }
 
-@ApiTags('location')
-@Controller({ path: 'location', version: ['1'] })
+@ApiTags('Locations')
+@Controller({ path: 'locations', version: ['1'] })
 export class CreateLocationController {
   constructor(
     private readonly createLocationUseCase: CreateLocationUseCase,
@@ -43,6 +43,7 @@ export class CreateLocationController {
   @ApiCreatedResponse({ description: 'created' })
   async create(@Body() request: CreateLocationRequest): Promise<void> {
     const { name, city, state } = request;
-    return this.createLocationUseCase.execute(name, city, state);
+    await this.createLocationUseCase.execute(name, city, state);
+    Logger.debug('Location created', { request });
   }
 }

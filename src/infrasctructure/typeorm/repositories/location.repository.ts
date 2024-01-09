@@ -1,8 +1,8 @@
 import { Location, LocationRepository } from "@app/domain";
 import { Injectable } from "@nestjs/common";
 import { Like, Repository } from "typeorm";
-import { LocationModel } from "../models/location.model";
 import { InjectRepository } from "@nestjs/typeorm";
+import { LocationModel } from "@app/infrasctructure";
 
 @Injectable()
 export class LocationDatabaseRepository implements LocationRepository {
@@ -14,6 +14,14 @@ export class LocationDatabaseRepository implements LocationRepository {
   create(locationData: Partial<Location>): Promise<Location> {
     const location = this.locationRepository.create(locationData)
     return this.locationRepository.save(location);
+  }
+
+  async delete(locationData: Location): Promise<void> {
+    const deleteResult = await this.locationRepository.delete(locationData.id);
+
+    if (deleteResult.affected === 0) {
+      throw new Error('Location not found or already deleted');
+    }
   }
 
   getById(id: string): Promise<Location | undefined> {

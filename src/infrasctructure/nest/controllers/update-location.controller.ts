@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Put, Param } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, Logger } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation, ApiProperty, ApiTags } from '@nestjs/swagger';
 
 import { UpdateLocationUseCase } from '@app/application';
@@ -28,19 +28,19 @@ export class UpdateLocationRequest {
   state: string;
 }
 
-@ApiTags('location')
-@Controller({ path: 'location', version: ['1'] })
+@ApiTags('Locations')
+@Controller({ path: 'locations', version: ['1'] })
 export class UpdateLocationController {
   constructor(
     private readonly updateLocationUseCase: UpdateLocationUseCase,
   ) { }
-
 
   @Put(':id')
   @ApiOperation({ summary: 'update location by ID' })
   @ApiCreatedResponse({ description: 'updated' })
   async update(@Param('id') id: string, @Body() request: UpdateLocationRequest): Promise<void> {
     const { name, city, state } = request;
-    return this.updateLocationUseCase.execute(id, name, city, state);
+    await this.updateLocationUseCase.execute(id, name, city, state);
+    Logger.debug('Location updated', { request });
   }
 }
