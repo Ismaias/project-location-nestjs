@@ -1,19 +1,29 @@
+import { PassportModule } from "@nestjs/passport"
+import { JwtModule } from '@nestjs/jwt';
 import { Module } from "@nestjs/common";
+import { AccessTokenProvider, LocalStrategy, SignupController, UserDatabaseRepository, UserModel } from "@app/infrasctructure";
+import { LoginUseCase, SignupUseCase } from "@app/application";
+import { LoginController } from "../controllers/login.controller";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserModel, UserDatabaseRepository, SignupController } from "@app/infrasctructure";
-import { SignupUseCase } from "@app/application";
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserModel]),
-  ],
-  controllers: [SignupController],
+    PassportModule,
+    JwtModule.register({
+      secret: 'secretKey',
+      signOptions: { expiresIn: '60s' },
+    })],
   providers: [
+    LoginUseCase,
     SignupUseCase,
+    AccessTokenProvider,
+    LocalStrategy,
     {
       provide: 'UserRepository',
       useClass: UserDatabaseRepository,
-    }
+    },
   ],
+  controllers: [SignupController, LoginController],
 })
 export class AuthModule { }

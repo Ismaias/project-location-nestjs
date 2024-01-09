@@ -5,3 +5,4 @@ export * from './usecases/get-by-id-location.usecase';
 export * from './usecases/get-all-location.usecase';
 
 export * from './usecases/signup.usecase';
+export * from './usecases/login.usecase';

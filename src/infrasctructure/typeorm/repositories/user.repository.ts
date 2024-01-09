@@ -16,8 +16,8 @@ export class UserDatabaseRepository implements UserRepository {
     return this.userRepository.save(user);
   }
 
-  login(id: string): Promise<User | undefined> {
-    return this.userRepository.findOneBy({ id });
+  getByEmail(email: string): Promise<User | undefined> {
+    return this.userRepository.findOneBy({ email });
   }
 
 }

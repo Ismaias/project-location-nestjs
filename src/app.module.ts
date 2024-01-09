@@ -27,8 +27,8 @@ import { AuthModule } from '@app/infrasctructure/nest/modules/auth.module';
       },
       inject: [ConfigService],
     }),
-    LocationModule,
     AuthModule,
+    LocationModule,
   ],
 })
 export class AppModule { }
