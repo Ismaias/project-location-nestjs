@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  location-api-database:
+    image: postgres:16.1
+    restart: always
+    environment:
+      - 'POSTGRES_USER=location-api-user'
+      - 'POSTGRES_PASSWORD=root@123'
+      - 'POSTGRES_DB=Locations'
+    ports:
+      - 5432:5432
+    volumes:
+      - ./.temp:/var/lib/postgresql/data
+
+  location-api:
+    image: node:21.5.0
+    ports:
+      - 32750:3000
+    working_dir: '/home/node/app'
+    volumes:
+      - .:/home/node/app
+    depends_on:
+      - location-api-database
+    command: bash -c "npm install && npm run start:dev"
