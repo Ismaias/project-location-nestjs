@@ -1,0 +1,8 @@
+node_modules/
+lib/
+.github/
+.husky/
+.scannerwork/
+.temp/
+.vscode/
+.dist/
