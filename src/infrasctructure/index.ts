@@ -1,14 +1,14 @@
 export * from './nest/auth/access-token.provider';
 export * from './nest/auth/local.strategy';
 
-export * from './nest/controllers/create-location.controller';
-export * from './nest/controllers/update-location.controller';
-export * from './nest/controllers/delete-location.controller';
-export * from './nest/controllers/get-by-id-location.controller';
-export * from './nest/controllers/get-all-location.controller';
+export * from './nest/controllers/location/create-location.controller';
+export * from './nest/controllers/location/update-location.controller';
+export * from './nest/controllers/location/delete-location.controllerontroller';
+export * from './nest/controllers/location/get-by-id-location.controller';
+export * from './nest/controllers/location/get-all-location.controller';
 
-export * from './nest/controllers/signup.controller';
-export * from './nest/controllers/login.controller';
+export * from './nest/controllers/auth/signup.controller';
+export * from './nest/controllers/auth/login.controller';
 
 export * from './typeorm/models/location.model';
 export * from './typeorm/models/user.model';

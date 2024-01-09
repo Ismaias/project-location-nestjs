@@ -1,9 +1,8 @@
 import { PassportModule } from "@nestjs/passport"
 import { JwtModule } from '@nestjs/jwt';
 import { Module } from "@nestjs/common";
-import { AccessTokenProvider, LocalStrategy, SignupController, UserDatabaseRepository, UserModel } from "@app/infrasctructure";
+import { LoginController, AccessTokenProvider, LocalStrategy, SignupController, UserDatabaseRepository, UserModel } from "@app/infrasctructure";
 import { LoginUseCase, SignupUseCase } from "@app/application";
-import { LoginController } from "../controllers/login.controller";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
 @Module({
