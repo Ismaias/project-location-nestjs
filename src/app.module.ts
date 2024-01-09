@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { LocationModel } from '@app/infrasctructure';
+import { LocationModel, UserModel } from '@app/infrasctructure';
 import { LocationModule } from '@app/infrasctructure/nest/modules/location.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from '@app/infrasctructure/nest/modules/auth.module';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         return {
           type: 'postgres',
           url,
-          entities: [LocationModel],
+          entities: [LocationModel, UserModel],
           migrationsTableName: 'migrations',
           migrations: [`${__dirname}/**/migrations/*.ts`],
         };
@@ -27,6 +28,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
     LocationModule,
+    AuthModule,
   ],
 })
 export class AppModule { }
